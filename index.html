@@ -67,8 +67,9 @@ Experimental results show that our model not only maintains comparable timbre qu
             </tbody>
         </table>
 
-        <h3>Speech</h3>
-        <table>
+        <h3>Emotional Prompt</h3>
+        <p>Text: 面色涨红，林肯猛然厉声大喝</p> 
+        <table style="margin-left: auto; margin-right: auto;">
             <tbody id="tbody_emo_speech">
             </tbody>
         </table>
@@ -110,7 +111,7 @@ Experimental results show that our model not only maintains comparable timbre qu
 
             let scene_data = ""
             scene_data += '<tr>'
-            scene_data += '<td style="text-align: center; width: 10" rowspan=1>' + name + '</td>'
+            scene_data += '<td style="text-align: center; width: 10%" rowspan=1>' + name + '</td>'
             for (let z in emos) {
                 let emo = emos[z]
                 scene_data += '<td style="text-align: center;"><audio style="width: 100%;" controls="" src="' + './demos/' + target_dir + '/' + emo + '.wav' + '"></audio></td>'
