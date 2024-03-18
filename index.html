@@ -47,7 +47,7 @@ Experimental results show that our model not only maintains comparable timbre qu
 
         <table frame=void rules=none>
             <tr>
-                <center><img src='fig/overview.png' width="50%"></center>
+                <center><img src='fig/overview.png' width="60%"></center>
                 <center>Overview of our framework</center>
             </tr>
         </table>
@@ -67,9 +67,7 @@ Experimental results show that our model not only maintains comparable timbre qu
             </tbody>
         </table>
 
-        <h3>Zero-Shot TTS Samples (Emotional Prompt)</h3>
-        <p>The emotional prompts below are from the internal emotional dataset.</p>
-        <p>Text: 面色涨红，林肯猛然厉声大喝</p> 
+        <h3>Zero-Shot TTS Samples (Highly Expressive Prompt)</h3>
         <table style="margin-left: auto; margin-right: auto;">
             <tbody id="tbody_emo_speech">
             </tbody>
@@ -106,28 +104,43 @@ Experimental results show that our model not only maintains comparable timbre qu
 
 <script type="" text="javascript">
     function emo_speech() {
-        let scenes = [["Prompt", "emo_refers"], ["Synthesised", "emo_samples"]]
-        let emos = ["happy", "angry", "sad", "surprise", "fear", "disgust"]
+        let scenes = [
+            ["3", "哇，你什么时候变得这么厉害的。"],
+            ["5", "她男朋友也是一天换一个的。"],
+            ["7", "只要孩子不生病，好好学习，就心满意足了。他们根本不知道怎样才能跟孩子进行有效的交流。"],
+            ["9", "今日，我们关注到了微博上有一些用户在散布关于刘强东先生的一些不实传言。特此声明如下： 刘强东先生在美国商务活动期间，遭遇到了失实指控，经过当地警方调查，未发现有任何不当行为，他将按照原计划继续其行程。我们将针对不实报道或造谣行为釆取必要的法律行动。"],
+            ["12", "基尔德妈妈开始责怪他，并让他快滚。"],
+            ["100", "他让强盗捆绑起来。",],
+            ["101", "如果卡扎菲在选举中落败，愿意下台，但不会流亡。",],
+            ["102", "他让强盗捆绑起来。",],
+            ["103", "就交执法官去审讯。",],
+            ["104", "就交执法官去审讯。",],
+            ["105", "面色涨红，林肯猛然厉声大喝。",],
+            // ["106", "面色涨红，林肯猛然厉声大喝。",],
+            ["107", "除了多人创纪录外，我们的单人创纪录也很有特色。",],
+        ]
+        let models = [["Prompt", "ref"], ["Proposed", "any_speaker"],  ["VALL-E", "valle"], ["NS2", "ns2"]]
         let short_data = `
-        <tr>
-            <td style="text-align: center; " rowspan=1><strong><strong></td>
-        `
-        for (const id in emos) {
-            emo = emos[id]
-            short_data += '<td style="text-align: center; width: 14%;" rowspan=1><strong>' + emo  + '<strong></td>'
+                <tr>
+                    <td style="text-align: center; " rowspan=1><strong>Text<strong></td>
+                `
+        for (const id in models) {
+            model = models[id][0]
+            short_data += '<td style="text-align: center; width: 14%;" rowspan=1><strong>' + model  + '<strong></td>'
         }
         short_data += `</tr>`
+        
         for (let x in scenes) {
             let scene = scenes[x]
-            let name = scene[0]
-            let target_dir = scene[1]
-
+            let file = scene[0]
+            let text = scene[1]
             let scene_data = ""
+
             scene_data += '<tr>'
-            scene_data += '<td style="text-align: center; width: 10%" rowspan=1>' + name + '</td>'
-            for (let z in emos) {
-                let emo = emos[z]
-                scene_data += '<td style="text-align: center;"><audio style="width: 100%;" controls="" src="' + './demos/' + target_dir + '/' + emo + '.wav' + '"></audio></td>'
+            scene_data += '<td style="text-align: center; width: 10%;" rowspan=1>' + text + '</td>'
+            for (let z in models) {
+                let model = models[z][1]
+                scene_data += '<td style="text-align: center"><audio style="width: 100%;" controls="" src="' + './demos/' + model + '/' + file + '.wav' + '"></audio></td>'
                 
             }
             scene_data += '</tr>'
@@ -141,16 +154,11 @@ Experimental results show that our model not only maintains comparable timbre qu
             ["0", "都能看到人流中穿着深色制服的关员们在忙碌。"],
             ["1", "另一方面，要约束惩罚犯罪的权利本身。"],
             ["2", "我们每天谈论的这个政治。"],
-            ["3", "哇，你什么时候变得这么厉害的。"],
             ["4", "她说仪式不仅得办，还得隆重地办，热烈地办。"],
-            ["5", "她男朋友也是一天换一个的。"],
             ["6", "以后我们大概不会再见面了。"],
-            ["7", "只要孩子不生病，好好学习，就心满意足了。他们根本不知道怎样才能跟孩子进行有效的交流。"],
             ["8", "哇，你什么时候变得这么厉害的。"],
-            ["9", "今日，我们关注到了微博上有一些用户在散布关于刘强东先生的一些不实传言。特此声明如下： 刘强东先生在美国商务活动期间，遭遇到了失实指控，经过当地警方调查，未发现有任何不当行为，他将按照原计划继续其行程。我们将针对不实报道或造谣行为釆取必要的法律行动。"],
             ["10", "瞎说，我是出了名的眼力好。"],
             ["11", "那有什么问题的话，到时候咱们也可以方便交流，您看方便的话可以留一下您这边电话吗就是。"],
-            ["12", "基尔德妈妈开始责怪他，并让他快滚。"],
         ]
         let models = [["Prompt", "ref"], ["Proposed", "any_speaker"],  ["VALL-E", "valle"], ["NS2", "ns2"]]
         let short_data = `
